@@ -33,7 +33,7 @@ public class CustomSocketIOServer {
     public void onConnect(SocketIOClient client) {
         String sa = client.getRemoteAddress().toString();
         String clientIp = sa.substring(1, sa.indexOf(":"));// 获取设备ip
-        log.info(clientIp + "-------------------------" + "客户端已连接");
+        log.info(clientIp + "-------------------------" + "客户端已连接," + "clientId = " + client.getSessionId());
         Map<String, List<String>> params = client.getHandshakeData().getUrlParams();
         log.info("客户端参数：{}", params);
     }
@@ -42,7 +42,7 @@ public class CustomSocketIOServer {
     public void onDisconnect(SocketIOClient client) {
         String sa = client.getRemoteAddress().toString();
         String clientIp = sa.substring(1, sa.indexOf(":"));// 获取设备ip
-        log.info(clientIp + "-------------------------" + "客户端已断开连接");
+        log.info(clientIp + "-------------------------" + "客户端已断开连接," + "clientId = " + client.getSessionId());
     }
 
 
@@ -119,7 +119,21 @@ public class CustomSocketIOServer {
     }
 
     /**
-     * 给指定房间发送消息
+     * 给单人发送消息
+     * 42["testSendClient","data"]
+     * <p>
+     * socket.emit('testSendClient','data');
+     * socket.on('testSendClient',fn)
+     */
+    @OnEvent(value = "testSendClient")
+    public void onTestSendClient1Event(SocketIOClient client, AckRequest ackRequest, String data) {
+        log.info("后台主动发送数据");
+        socketIOServer.getClient(client.getSessionId()).sendEvent("后台主动发送数据", data);
+    }
+
+
+    /**
+     * 给指定房间（频道）发送消息
      * 42["testSendRoom1","data"]
      * <p>
      * socket.emit('testSendRoom1','data');
