@@ -1,4 +1,4 @@
-package com.winnie.demo;
+package com.winnie.demo.config;
 
 import com.corundumstudio.socketio.SocketConfig;
 import com.corundumstudio.socketio.SocketIOServer;

@@ -1,4 +1,4 @@
-package com.winnie.demo;
+package com.winnie.demo.config;
 
 import com.corundumstudio.socketio.SocketIOServer;
 import org.springframework.boot.CommandLineRunner;

@@ -132,21 +132,13 @@ public class CustomSocketIOServer {
     }
 
 
-    /**
-     * 给指定房间（频道）发送消息
-     * 42["testSendRoom1","data"]
-     * <p>
-     * socket.emit('testSendRoom1','data');
-     * socket.on('testSendRoom1',fn)
-     */
-    @OnEvent(value = "testSendRoom1")
-    public void onTestSendRoom1Event(SocketIOClient client, AckRequest ackRequest, String data) {
+    public void sendRoom1Event(String data) {
         log.info("后台主动发送数据");
         socketIOServer.getRoomOperations("room1").sendEvent("后台主动发送数据", data);
     }
 
-    @OnEvent(value = "testSendRoom2")
-    public void onTestSendRoom2Event(SocketIOClient client, AckRequest ackRequest, String data) {
+
+    public void sendRoom2Event(String data) {
         log.info("后台主动发送数据");
         socketIOServer.getRoomOperations("room2").sendEvent("后台主动发送数据", data);
     }
